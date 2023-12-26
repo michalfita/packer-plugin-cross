@@ -23,7 +23,7 @@ source "cross" "ubuntu" {
 
 
 build {
-  sources = ["source.arm.ubuntu"]
+  sources = ["source.cross.ubuntu"]
 
   provisioner "shell" {
     inline = [
