@@ -54,7 +54,7 @@ source "cross" "radxa" {
 }
 
 build {
-  sources = ["source.arm.radxa"]
+  sources = ["source.cross.radxa"]
 
   provisioner "shell" {
     inline = [

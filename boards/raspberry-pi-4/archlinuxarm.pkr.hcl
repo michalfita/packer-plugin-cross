@@ -38,7 +38,7 @@ source "cross" "arch" {
 }
 
 build {
-  sources = ["source.arm.arch"]
+  sources = ["source.cross.arch"]
 
   provisioner "shell" {
     inline = [
