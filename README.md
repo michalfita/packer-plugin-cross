@@ -6,9 +6,6 @@
 [![Build Status][github-badge]][github]
 [![GoDoc][godoc-badge]][godoc]
 [![GoReportCard][report-badge]][report]
-[![Docker Pulls][docker-pulls]][docker-hub]
-[![Docker Image Size][docker-size]][docker-hub]
-[![Docker Image Version][docker-version]][docker-hub]
 
 [github-badge]:https://img.shields.io/github/actions/workflow/status/michalfita/packer-plugin-cross/docker.yml?branch=master
 [github]: https://github.com/michalfita/packer-plugin-cross/actions
@@ -16,11 +13,6 @@
 [godoc]: https://godoc.org/github.com/michalfita/packer-plugin-cross
 [report-badge]: https://goreportcard.com/badge/github.com/michalfita/packer-plugin-cross
 [report]: https://goreportcard.com/report/github.com/michalfita/packer-plugin-cross
-[docker-hub]: https://hub.docker.com/r/michalfita/packer-plugin-cross
-[docker-pulls]: https://img.shields.io/docker/pulls/michalfita/packer-plugin-cross
-[docker-size]: https://img.shields.io/docker/image-size/michalfita/packer-plugin-cross
-[docker-version]: https://img.shields.io/docker/v/michalfita/packer-plugin-cross?sort=semver
-
 
 This plugin allows you to build or extend cross-platform system image. It operates in three modes:
 * new - creates empty disk image and populates the `rootfs` on it
@@ -74,21 +66,18 @@ The container is a multi-arch container (linux/amd64 or linux/arm64), that can b
 
 ### Usage via container from Docker Hub:
 
-> ![WARNING]
-> Not supported at the moment, I plan to use `ghcr.io` instead.
-
 Pull the latest version of the container to ensure the next commands are not using an old cached version of the container:
 ```
-docker pull michalfita/packer-plugin-cross:latest
+docker pull ghcr.io/michalfita/packer-plugin-cross:latest
 ```
 
 Build a board:
 ```
-docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build michalfita/packer-plugin-cross:latest build boards/raspberry-pi/raspbian.json
+docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build ghcr.io/michalfita/packer-plugin-cross:latest build boards/raspberry-pi/raspbian.json
 ```
 Build a board with more system packages (e.g. bmap-tools, zstd) can be added via the parameter `-extra-system-packages=...`:
 ```
-docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build michalfita/packer-plugin-cross:latest build boards/raspberry-pi/raspbian.json -extra-system-packages=bmap-tools,zstd
+docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build ghcr.io/michalfita/packer-plugin-cross:latest build boards/raspberry-pi/raspbian.json -extra-system-packages=bmap-tools,zstd
 ```
 
 > ![TIP]
@@ -251,12 +240,6 @@ With `artifice` plugin you can pass rootfs archive to docker plugins
     }],
     ...
 ]
-```
-
-## CI/CD
-This is the live example on how to use GitHub Actions to push image to docker image registry:
-```
-cat .github/workflows/archlinuxarm-armv7-docker.yml
 ```
 
 ## How is this plugin different from `solo-io/packer-plugin-cross-image`

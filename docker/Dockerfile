@@ -64,7 +64,7 @@ RUN apt-get update -qq \
 WORKDIR /build
 
 COPY docker/entrypoint.sh /entrypoint.sh
-COPY --from=builder /build/packer-builder-arm /bin/packer /bin/
+COPY --from=builder /build/packer-plugin-cross /bin/packer /bin/
 COPY --from=qemu_binaries /binaries/* /usr/bin/
 
 # Enable detailed logging
