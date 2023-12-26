@@ -1,7 +1,7 @@
 {
   "variables": {},
   "builders": [{
-    "type": "arm",
+    "type": "cross",
     "file_urls" : ["http://hu.mirror.archlinuxarm.org/os/ArchLinuxARM-armv7-latest.tar.gz"],
     "file_checksum_url": "http://hu.mirror.archlinuxarm.org/os/ArchLinuxARM-armv7-latest.tar.gz.md5",
     "file_checksum_type": "md5",

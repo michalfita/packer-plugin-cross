@@ -1,7 +1,7 @@
 {
   "variables": {},
   "builders": [{
-    "type": "arm",
+    "type": "cross",
     "file_urls" : ["https://s3.amazonaws.com/angstrom/demo/beaglebone/Angstrom-Cloud9-IDE-GNOME-eglibc-ipk-v2012.12-beaglebone-2013.06.20.img.xz"],
     "file_checksum": "6de3e854014d5b69381043f6d40fc24feb3a478577db3e2915e3b55871ae1cf4",
     "file_checksum_type": "sha256",

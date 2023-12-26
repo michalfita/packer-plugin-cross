@@ -1,7 +1,7 @@
 {
   "variables": {},
   "builders": [{
-    "type": "arm",
+    "type": "cross",
     "file_urls" : ["https://developer.nvidia.com/jetson-nano-sd-card-image-r3221"],
     "file_checksum": "7b87e26d59c560ca18692a1ba282d842",
     "file_checksum_type": "md5",

@@ -1,7 +1,7 @@
 {
   "variables": {},
   "builders": [{
-    "type": "arm",
+    "type": "cross",
     "file_urls" : ["https://github.com/parallella/parabuntu/releases/download/parabuntu-2016.11.1/parabuntu-2016.11.1-headless-z7020.img.gz"],
     "file_checksum_url": "https://github.com/parallella/parabuntu/releases/download/parabuntu-2016.11.1/sha256sum.txt",
     "file_checksum_type": "sha256",

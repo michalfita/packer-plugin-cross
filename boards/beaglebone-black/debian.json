@@ -1,7 +1,7 @@
 {
   "variables": {},
   "builders": [{
-    "type": "arm",
+    "type": "cross",
     "file_urls" : ["https://rcn-ee.com/rootfs/bb.org/testing/2022-10-01/buster-iot-armhf/bone-debian-10.13-iot-armhf-2022-10-01-4gb.img.xz"],
     "file_checksum": "1d37fb8ef74543dac45c97e32ebb0f79b077ad140dedb9d267456e35f960dd25",
     "file_checksum_type": "sha256",

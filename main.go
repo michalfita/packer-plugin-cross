@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"github.com/hashicorp/packer-plugin-sdk/plugin"
-	"github.com/mkaczanowski/packer-plugin-arm/builder"
-	"github.com/mkaczanowski/packer-plugin-arm/version"
+	"github.com/michalfita/packer-plugin-cross/builder"
+	"github.com/michalfita/packer-plugin-cross/version"
 	"os"
 )
 
