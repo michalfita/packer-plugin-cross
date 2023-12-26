@@ -1,4 +1,4 @@
-NAME=arm
+NAME=cross
 BINARY=packer-plugin-${NAME}
 
 HASHICORP_PACKER_PLUGIN_SDK_VERSION?=$(shell go list -m github.com/hashicorp/packer-plugin-sdk | cut -d " " -f2)
