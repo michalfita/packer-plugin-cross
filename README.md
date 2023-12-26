@@ -213,7 +213,7 @@ To resize a partition you need to set `image_build_method` to `resize` mode and 
 ```
 "builders": [
   {
-    "type": "arm",
+    "type": "cross",
     "image_build_method": "resize",
     "image_partitions": [
       {

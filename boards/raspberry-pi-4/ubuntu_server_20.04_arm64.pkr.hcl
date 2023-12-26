@@ -13,7 +13,7 @@ locals {
   git_sha = data.git-commit.cwd-head.hash
 }
 
-source "arm" "ubuntu" {
+source "cross" "ubuntu" {
   file_urls             = ["http://cdimage.ubuntu.com/releases/20.04.2/release/ubuntu-20.04.2-preinstalled-server-arm64+raspi.img.xz"]
   file_checksum_url     = "http://cdimage.ubuntu.com/releases/20.04.2/release/SHA256SUMS"
   file_checksum_type    = "sha256"

@@ -1,7 +1,7 @@
 {
   "variables": {},
   "builders": [{
-    "type": "arm",
+    "type": "cross",
     "file_urls" : ["https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-11-08/2021-10-30-raspios-bullseye-armhf-lite.zip"],
     "file_checksum_url": "https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2021-11-08/2021-10-30-raspios-bullseye-armhf-lite.zip.sha256",
     "file_checksum_type": "sha256",

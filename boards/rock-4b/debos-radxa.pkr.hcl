@@ -1,4 +1,4 @@
-source "arm" "radxa" {
+source "cross" "radxa" {
   file_urls             = ["https://github.com/radxa/debos-radxa/releases/download/20221201-0835/rockpi-4b-debian-bullseye-xfce4-arm64-20221201-1203-gpt.img.xz"]
   file_checksum         = "14d5c5318e5a5bd407e718ba01a03a4e631895007fb6ddde1597310d23782894"
   file_checksum_type    = "sha256"
