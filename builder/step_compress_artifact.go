@@ -122,7 +122,7 @@ func (s *StepCompressArtifact) Run(_ context.Context, state multistep.StateBag) 
 		return multistep.ActionHalt
 	}
 
-	if _, err := exec.Command("mv", dst, imagePath).CombinedOutput(); err != nil {
+	if err := os.Rename(dst, imagePath); err != nil {
 		ui.Error(fmt.Sprintf("error while moving archive: %v", err))
 		return multistep.ActionHalt
 	}

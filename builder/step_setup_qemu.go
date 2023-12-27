@@ -4,12 +4,12 @@ import (
 	"context"
 	"fmt"
 	"os"
-	"os/exec"
 	"path/filepath"
 	"strings"
 
 	"github.com/hashicorp/packer-plugin-sdk/multistep"
 	"github.com/hashicorp/packer-plugin-sdk/packer"
+	"github.com/otiai10/copy"
 )
 
 func checkBinfmtMisc(srcPath string) (string, error) {
@@ -77,9 +77,9 @@ func (s *StepSetupQemu) Run(_ context.Context, state multistep.StateBag) multist
 	}
 
 	ui.Message(fmt.Sprintf("copying qemu binary from %s to: %s", srcPath, dstPath))
-	out, err := exec.Command("cp", srcPath, dstPath).CombinedOutput()
+	err = copy.Copy(srcPath, dstPath)
 	if err != nil {
-		ui.Error(fmt.Sprintf("error while copying %v: %s", err, out))
+		ui.Error(fmt.Sprintf("failed to copy %s to %s: %v", err, srcPath, dstPath))
 		return multistep.ActionHalt
 	}
 
