@@ -7,7 +7,7 @@ packer {
   }
 }
 
-source "arm" "arch" {
+source "cross" "arch" {
   file_urls             = ["http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-aarch64-latest.tar.gz"]
   file_checksum_url     = "http://os.archlinuxarm.org/os/ArchLinuxARM-rpi-aarch64-latest.tar.gz.md5"
   file_checksum_type    = "md5"
@@ -38,7 +38,7 @@ source "arm" "arch" {
 }
 
 build {
-  sources = ["source.arm.arch"]
+  sources = ["source.cross.arch"]
 
   provisioner "shell" {
     inline = [

@@ -1,7 +1,7 @@
 {
   "variables": {},
   "builders": [{
-    "type": "arm",
+    "type": "cross",
     "file_urls" : ["http://os.archlinuxarm.org/os/ArchLinuxARM-am33x-latest.tar.gz"],
     "file_checksum_url": "http://de4.mirror.archlinuxarm.org/os/ArchLinuxARM-am33x-latest.tar.gz.md5",
     "file_checksum_type": "md5",

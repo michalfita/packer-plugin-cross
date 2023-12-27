@@ -1,7 +1,7 @@
 {
   "variables": {},
   "builders": [{
-    "type": "arm",
+    "type": "cross",
     "file_urls" : ["https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-09-30/2019-09-26-raspbian-buster.zip"],
     "file_checksum_url": "https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-09-30/2019-09-26-raspbian-buster.zip.sha256",
     "file_checksum_type": "sha256",

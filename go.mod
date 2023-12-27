@@ -1,4 +1,4 @@
-module github.com/mkaczanowski/packer-builder-arm
+module github.com/michalfita/packer-plugin-cross
 
 go 1.20
 

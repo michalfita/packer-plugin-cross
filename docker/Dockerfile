@@ -30,7 +30,7 @@ WORKDIR /build
 
 COPY . .
 
-RUN go build -o packer-builder-arm
+RUN go build -o packer-plugin-cross
 
 ENV PACKER_VERSION 1.10.0
 
@@ -41,7 +41,7 @@ RUN if [ "$(uname -m)" = "aarch64" ]; then PACKER_ARCH="arm64"; else PACKER_ARCH
   rm /tmp/packer.zip
 
 # COMPRESS WITH UPX
-RUN upx-ucl --lzma /build/packer-builder-arm /bin/packer
+RUN upx-ucl --lzma /build/packer-plugin-cross /bin/packer
 
 FROM public.ecr.aws/lts/ubuntu:jammy
 
@@ -64,7 +64,7 @@ RUN apt-get update -qq \
 WORKDIR /build
 
 COPY docker/entrypoint.sh /entrypoint.sh
-COPY --from=builder /build/packer-builder-arm /bin/packer /bin/
+COPY --from=builder /build/packer-plugin-cross /bin/packer /bin/
 COPY --from=qemu_binaries /binaries/* /usr/bin/
 
 # Enable detailed logging

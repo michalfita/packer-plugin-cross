@@ -2,14 +2,14 @@ package builder
 
 import "os"
 
-// Artifact represents the image produced by packer-builder-arm
+// Artifact represents the image produced by packer-plugin-cross
 type Artifact struct {
 	image string
 }
 
 // BuilderId returns builder ID
 func (a *Artifact) BuilderId() string { //nolint:all
-	return "builder-arm"
+	return "plugin-cross"
 }
 
 // Files returns list of images (in that case just one) built

@@ -21,4 +21,5 @@
 .packer_plugins
 packer_cache
 packer-builder-arm
+packer-plugin-arm
 packer-plugin-cross
