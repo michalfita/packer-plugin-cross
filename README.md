@@ -59,7 +59,7 @@ sudo packer build boards/odroid-u3/archlinuxarm.json
 
 This method is primarily for macOS users where is no native way to use `qemu-user-static`, loop mount Linux specific filesystems and install all above mentioned Linux specific tools (or Linux users, who do not want to setup packer and all the tools).
 
-The container is a multi-arch container (linux/amd64 or linux/arm64), that can be used on Intel (x86_64) or Apple M1 (arm64) Macs and also on Linux machines running linux (x86_64 or aarch64) kernels.
+The container is a multi-arch container (Linux/amd64 or Linux/arm64), that can be used on Intel (x86_64) or Apple M1 (arm64) Macs and also on Linux machines running Linux (x86_64 or aarch64) kernels.
 
 > ![NOTE]
 > On Macs: Don't run `go build .` (that produces a **Darwin** binary) and then run below `docker run ...` commands from the same folder to avoid the error `error initializing builder 'arm': fork/exec /build/packer-plugin-cross: exec format error` (**Linux** packer process within docker fails to load the outside container compiled `packer-plugin-cross` binary due to being a **Darwin** binary). Delete any local binary via `rm -r packer-*` to solely use the binary already included and provided by the container.
@@ -75,12 +75,12 @@ Build a board:
 ```
 docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build ghcr.io/michalfita/packer-plugin-cross:latest build boards/raspberry-pi/raspbian.json
 ```
-Build a board with more system packages (e.g. bmap-tools, zstd) can be added via the parameter `-extra-system-packages=...`:
+Build a board with more system packages (e.g. `bmap-tools`, `zstd`) can be added via the parameter `-extra-system-packages=...`:
 ```
 docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build ghcr.io/michalfita/packer-plugin-cross:latest build boards/raspberry-pi/raspbian.json -extra-system-packages=bmap-tools,zstd
 ```
 
-> ![TIP]
+> [!TIP]
 > In above commands **`latest`** can also be replaced via e.g. **`1.0.3`** to get a specific container version.
 
 ### Usage via local container build (supports amd64/aarch64 hosts):
@@ -119,7 +119,7 @@ Describes the remote file that is going to be used as base image or rootfs archi
 
 Downloads of the `file_urls` are done with the help of `github.com/hashicorp/go-getter`, which supports various protocols: local files, http(s) and various others, see https://github.com/hashicorp/go-getter#supported-protocols-and-detectors). Downloading via more protocols can be done by using other tools (`curl`, `wget`, `rclone`, ...) before running packer and referencing the downloaded files as local file in `file_urls`.
 
-The `file_unarchive_cmd` is optional and should be used if the standard golang archiver can't handle the archive format.
+The `file_unarchive_cmd` is optional and should be used if the [Archiver package](github.com/mholt/archiver) can't handle the archive format.
 
 Raw images format (`.img` or `.iso`) can be used by defining the `file_target_extension` appropriately.
 
@@ -272,7 +272,7 @@ cd packer-plugin-cross
 vagrant up
 vagrant provision
 ```
-> ![NOTE]
+> [!NOTE]
 > For this the `disksize` plugin is needed if not already installed:
 > ```sh
 > vagrant plugin install vagrant-disksize
