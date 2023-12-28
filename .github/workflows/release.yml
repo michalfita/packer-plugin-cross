@@ -9,6 +9,9 @@ on:
       - master
   pull_request:
 
+permissions:
+  contents: write
+
 jobs:
   plugin-release:
     runs-on: ubuntu-latest
