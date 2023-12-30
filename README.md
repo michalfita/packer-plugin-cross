@@ -57,7 +57,7 @@ This method is primarily for macOS users where is no native way to use `qemu-use
 
 The container is a multi-arch container (Linux/amd64 or Linux/arm64), that can be used on Intel (x86_64) or Apple M1 (arm64) Macs and also on Linux machines running Linux (x86_64 or aarch64) kernels.
 
-> !\[NOTE\]
+> \[!NOTE\]
 > On Macs: Don't run `go build .` (that produces a **Darwin** binary) and then run below `docker run ...` commands from the same folder to avoid the error `error initializing builder 'arm': fork/exec /build/packer-plugin-cross: exec format error` (**Linux** packer process within docker fails to load the outside container compiled `packer-plugin-cross` binary due to being a **Darwin** binary). Delete any local binary via `rm -r packer-*` to solely use the binary already included and provided by the container.
 
 ### Usage via container from Docker Hub:
