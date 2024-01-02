@@ -9,7 +9,6 @@ repos:
       - id: fix-byte-order-marker
       - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
-      - id: check-json
       - id: check-yaml
       - id: end-of-file-fixer
       - id: mixed-line-ending

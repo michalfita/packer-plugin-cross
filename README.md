@@ -48,7 +48,7 @@ cd packer-plugin-cross
 go mod download
 go build
 
-sudo packer build boards/odroid-u3/archlinuxarm.json
+sudo packer build boards/odroid-u3/archlinuxarm.pkr.hcl
 ```
 
 ## Run in Docker
@@ -71,13 +71,13 @@ docker pull ghcr.io/michalfita/packer-plugin-cross:latest
 Build a board:
 
 ```
-docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build ghcr.io/michalfita/packer-plugin-cross:latest build boards/raspberry-pi/raspbian.json
+docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build ghcr.io/michalfita/packer-plugin-cross:latest build boards/raspberry-pi/raspbian.pkr.hcl
 ```
 
 Build a board with more system packages (e.g. `bmap-tools`, `zstd`) can be added via the parameter `-extra-system-packages=...`:
 
 ```
-docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build ghcr.io/michalfita/packer-plugin-cross:latest build boards/raspberry-pi/raspbian.json -extra-system-packages=bmap-tools,zstd
+docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build ghcr.io/michalfita/packer-plugin-cross:latest build boards/raspberry-pi/raspbian.pkr.hcl -extra-system-packages=bmap-tools,zstd
 ```
 
 > \[!TIP\]
@@ -94,7 +94,7 @@ docker build -t packer-plugin-cross -f docker/Dockerfile .
 Run packer via the local built container:
 
 ```
-docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build packer-plugin-cross build boards/raspberry-pi/raspbian.json
+docker run --rm --privileged -v /dev:/dev -v ${PWD}:/build packer-plugin-cross build boards/raspberry-pi/raspbian.pkr.hcl
 ```
 
 # Dependencies
@@ -184,7 +184,7 @@ To execute command within chroot environment you should use chroot communicator:
 ]
 ```
 
-This plugin doesn't resize partitions on the base image. However, you can easily expand partition size at the boot time with a `systemd` service. [Here](./boards/raspberry-pi/archlinuxarm.json) you can find real-life example, where a raspberry pi root-fs partition expands to all available space on SD card.
+This plugin doesn't resize partitions on the base image. However, you can easily expand partition size at the boot time with a `systemd` service. [Here](./boards/raspberry-pi/archlinuxarm.pkr.hcl) you can find real-life example, where a raspberry pi root-fs partition expands to all available space on SD card.
 
 # Flashing
 
@@ -243,7 +243,7 @@ To resize a partition you need to set `image_build_method` to `resize` mode and 
 
 Complete examples:
 
-- [`boards/raspberry-pi/raspbian-resize.json`](./boards/raspberry-pi/raspbian-resize.json)
+- [`boards/raspberry-pi/raspbian-resize.pkr.hcl`](./boards/raspberry-pi/raspbian-resize.pkr.hcl)
 - [`boards/beaglebone-black/ubuntu.pkr.hcl`](./boards/beaglebone-black/ubuntu.pkr.hcl)
 
 ## Docker
