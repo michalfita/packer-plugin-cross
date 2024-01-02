@@ -59,28 +59,27 @@ jobs:
       fail-fast: false
       matrix:
         boards:
-          #- bananapi-r1/archlinuxarm.json
-          - beaglebone-black/angstrom.json
-          - beaglebone-black/archlinuxarm.json
-          - beaglebone-black/debian.json
+          #- bananapi-r1/archlinuxarm.pkr.hcl
+          - beaglebone-black/angstrom.pkr.hcl
+          - beaglebone-black/archlinuxarm.pkr.hcl
+          - beaglebone-black/debian.pkr.hcl
           - beaglebone-black/ubuntu.pkr.hcl
-          #- jetson-nano/ubuntu.json
-          - odroid-u3/archlinuxarm.json
-          - odroid-xu4/archlinuxarm.json
-          - odroid-xu4/ubuntu.json
-          - parallella/archlinuxarm.json
-          - parallella/ubuntu.json
-          - raspberry-pi/archlinuxarm.json
-          - raspberry-pi/raspbian.json
-          - raspberry-pi/raspbian-resize.json
-          - raspberry-pi/raspios-lite-arm.json
-          - raspberry-pi-3/archlinuxarm.json
-          - raspberry-pi-3/raspios-lite-arm64.json
-          - raspberry-pi-4/ubuntu_server_20.04_arm64.json
+          #- jetson-nano/ubuntu.pkr.hcl
+          - odroid-u3/archlinuxarm.pkr.hcl
+          - odroid-xu4/archlinuxarm.pkr.hcl
+          - odroid-xu4/ubuntu.pkr.hcl
+          - parallella/archlinuxarm.pkr.hcl
+          - parallella/ubuntu.pkr.hcl
+          - raspberry-pi/archlinuxarm.pkr.hcl
+          - raspberry-pi/raspbian.pkr.hcl
+          - raspberry-pi/raspbian-resize.pkr.hcl
+          - raspberry-pi/raspios-lite-arm.pkr.hcl
+          - raspberry-pi-3/archlinuxarm.pkr.hcl
+          - raspberry-pi-3/raspios-lite-arm64.pkr.hcl
           - raspberry-pi-4/ubuntu_server_20.04_arm64.pkr.hcl
           - raspberry-pi-4/archlinuxarm.pkr.hcl
           - rock-4b/debos-radxa.pkr.hcl
-          - wandboard/archlinuxarm.json
+          - wandboard/archlinuxarm.pkr.hcl
     name: Build ${{ matrix.boards }} image
     runs-on: ubuntu-latest
     steps:
@@ -166,7 +165,7 @@ jobs:
         run: |
           vagrant ssh -c " \
             cd packer-plugin-cross && \
-            sudo PACKER_LOG=1 packer build boards/raspberry-pi-3/archlinuxarm.json \
+            sudo PACKER_LOG=1 packer build boards/raspberry-pi-3/archlinuxarm.pkr.hcl \
           "
 
       - name: Check result
