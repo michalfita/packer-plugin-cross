@@ -32,6 +32,14 @@ repos:
     hooks:
       - id: go-fmt
      #- id: golangci-lint
+  - repo: local
+    hooks:
+      - id: packer_fmt
+        name: Packer Format
+        entry: packer fmt -recursive boards
+        language: system
+        files: (\.pkr\.hcl)$
+        pass_filenames: false
   - repo: https://github.com/executablebooks/mdformat
     rev: 0.7.17
     hooks:
