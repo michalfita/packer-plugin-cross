@@ -13,7 +13,11 @@ jobs:
     # brew install pre-commit shellcheck && pre-commit run -a
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v4
+      - name: Install Packer
+        uses: hashicorp-contrib/setup-packer@v3
+        with:
+          packer-version: 1.10.0
       - uses: actions/setup-go@v5.0.0
         with:
           go-version: '1.21'
@@ -24,7 +28,7 @@ jobs:
     # brew install golangci-lint && golangci-lint run
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4.1.1
+      - uses: actions/checkout@v4
       - uses: actions/setup-go@v5.0.0
         with:
           go-version: '1.21'

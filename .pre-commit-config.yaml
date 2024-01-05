@@ -9,11 +9,11 @@ repos:
       - id: fix-byte-order-marker
       - id: check-executables-have-shebangs
       - id: check-shebang-scripts-are-executable
-      - id: check-json
       - id: check-yaml
       - id: end-of-file-fixer
       - id: mixed-line-ending
       - id: trailing-whitespace
+        exclude: .*\.md
   - repo: https://github.com/lovesegfault/beautysh
     rev: v6.2.1
     hooks:
@@ -31,6 +31,21 @@ repos:
     hooks:
       - id: go-fmt
      #- id: golangci-lint
+  - repo: local
+    hooks:
+      - id: packer_fmt
+        name: Packer Format
+        entry: packer fmt -recursive boards
+        language: system
+        files: (\.pkr\.hcl)$
+        pass_filenames: false
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.17
+    hooks:
+      - id: mdformat
+        additional_dependencies:
+          # gfm = github flavoured markdown
+          - mdformat-gfm
   - repo: https://github.com/codespell-project/codespell
     rev: v2.2.6
     hooks:
@@ -38,7 +53,7 @@ repos:
         exclude: go\.sum$
         args: ["-w"]
   - repo: https://github.com/python-jsonschema/check-jsonschema
-    rev: 0.27.0
+    rev: 0.27.3
     hooks:
       - id: check-github-workflows
       - id: check-dependabot
