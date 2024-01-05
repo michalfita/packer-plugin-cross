@@ -1,4 +1,4 @@
-name: Test CI & Vagrant (MacOS)
+name: Test CI
 on:
   push:
     tags:
@@ -111,66 +111,6 @@ jobs:
 
       - name: Build image
         run: sudo PACKER_LOG=1 packer build boards/${{ matrix.boards }}
-
-  test-vagrant:
-    needs: compile
-    runs-on: macos-12
-    name: Build board with vagrant
-    steps:
-      - name: Check GitHub Status
-        uses: crazy-max/ghaction-github-status@v4
-
-      - uses: actions/checkout@v4
-
-      - name: Cache Vagrant boxes
-        uses: actions/cache@v3
-        with:
-          path: ~/.vagrant.d/boxes
-          key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
-          restore-keys: |
-            ${{ runner.os }}-vagrant-
-
-      - name: Show Vagrant version
-        run: vagrant --version
-
-      - name: Install Vagrant plugins
-        run: |
-          vagrant plugin install vagrant-disksize
-
-      - name: Run vagrant up
-        run: |
-          vagrant up
-
-      - name: Upload source
-        run: |
-          git archive -o repo.tar.gz HEAD
-          vagrant upload repo.tar.gz /home/vagrant/repo.tar.gz
-          vagrant ssh -c " \
-            rm -rf packer-plugin-cross && \
-            mkdir packer-plugin-cross && \
-            tar -xf repo.tar.gz -C packer-plugin-cross \
-          "
-
-      - name: Retrieve cache
-        uses: actions/cache@v3
-        with:
-          path: packer-plugin-cross
-          key: key-${{ github.sha }}-1
-
-      - name: Upload packer-build-arm binary
-        run: |
-          vagrant upload packer-plugin-cross /home/vagrant/packer-plugin-cross/packer-plugin-cross
-
-      - name: Build board
-        run: |
-          vagrant ssh -c " \
-            cd packer-plugin-cross && \
-            sudo PACKER_LOG=1 packer build boards/raspberry-pi-3/archlinuxarm.pkr.hcl \
-          "
-
-      - name: Check result
-        run: |
-          vagrant ssh -c "ls -al packer-plugin-cross/raspberry-pi-3.img"
 
   plugin-check:
     needs: compile

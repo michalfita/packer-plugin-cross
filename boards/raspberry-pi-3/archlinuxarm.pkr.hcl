@@ -1,3 +1,11 @@
+packer {
+  required_plugins {
+    git = {
+      version = ">=v1.1.2"
+      source  = "github.com/michalfita/cross"
+    }
+  }
+}
 
 source "cross" "archlinux" {
   file_checksum_type    = "md5"
