@@ -1,8 +1,8 @@
 source "cross" "ubuntu" {
   file_checksum         = "ab905095c25996dd29351228c10a46980bb2ea98a73956620485d55deaffdf7e"
   file_checksum_type    = "sha256"
-  file_target_extension = "xz"
-  file_unarchive_cmd    = ["xz", "-d", "$ARCHIVE_PATH"]
+  file_target_extension = "bz2"
+  file_unarchive_cmd    = ["bunzip2", "-d", "$ARCHIVE_PATH"]
   file_urls             = ["https://rcn-ee.net/rootfs/ubuntu-armhf-20.04-console-v5.10-ti/2024-04-18/am335x-ubuntu-20.04.6-console-armhf-2024-04-18-4gb.img.bz2"]
   image_build_method    = "resize"
   image_path            = "bbb-sdcard-ubuntu-22.04.5-console.img"
