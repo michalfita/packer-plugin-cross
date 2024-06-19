@@ -110,7 +110,9 @@ jobs:
         run: PACKER_LOG=1 packer validate boards/${{ matrix.boards }}
 
       - name: Build image
-        run: sudo PACKER_LOG=1 packer build boards/${{ matrix.boards }}
+        run: |
+          PACKER_BINARY="$(which packer)"
+          sudo PACKER_LOG=1 ${PACKER_BINARY} build boards/${{ matrix.boards }}
 
   plugin-check:
     needs: compile
