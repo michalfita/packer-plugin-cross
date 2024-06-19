@@ -41,7 +41,7 @@ jobs:
         if: ${{ !startsWith(github.ref, 'refs/tags/') }}
         with:
           version: latest
-          args: release --clean --skip-publish --snapshot
+          args: release --clean --skip=publish --snapshot
         env:
           API_VERSION: ${{ steps.plugin_describe.outputs.api_version }}
       - name: Upload assets
