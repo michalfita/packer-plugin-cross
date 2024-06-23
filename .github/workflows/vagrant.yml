@@ -1,15 +1,9 @@
 name: Vagrant
 on:
   push:
-    paths:
-      - .github/workflows/vagrant.yml
-      - Vagrantfile
     branches:
       - master
   pull_request:
-    paths:
-      - .github/workflows/vagrant.yml
-      - Vagrantfile
   workflow_dispatch:
 
 concurrency:
@@ -18,7 +12,7 @@ concurrency:
 
 jobs:
   test:
-    runs-on: macos-12
+    runs-on: ubuntu-latest
     name: Build board with vagrant
     steps:
       - name: Check GitHub Status
@@ -34,6 +28,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-vagrant-
 
+      - name: Install vagrant / virtualbox
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y vagrant virtualbox
+
       - name: Show Vagrant version
         run: vagrant --version
 
@@ -43,7 +42,13 @@ jobs:
 
       - name: Run vagrant up
         run: |
-          vagrant up
+          for i in {1..4}; do
+            if vagrant up; then
+              break
+            fi
+            vagrant destroy -f
+            sleep $i
+          done
 
       - name: Upload source
         run: |
