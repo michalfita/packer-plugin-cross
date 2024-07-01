@@ -1,6 +1,8 @@
 module github.com/michalfita/packer-plugin-cross
 
-go 1.20
+go 1.21.0
+
+toolchain go1.22.4
 
 require (
 	github.com/dustin/go-humanize v1.0.1
