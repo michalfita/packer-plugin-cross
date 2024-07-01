@@ -1,5 +1,5 @@
 # Source for qemu-user-static >7.0
-FROM public.ecr.aws/ubuntu/ubuntu:lunar as qemu_binaries
+FROM public.ecr.aws/ubuntu/ubuntu:24.04 AS qemu_binaries
 
 # hadolint ignore=DL3008
 RUN apt-get update -qq \
@@ -14,10 +14,11 @@ RUN mkdir -p /binaries && \
         cp /usr/bin/qemu-arm-static /binaries/; \
     fi
 
-FROM golang:1.22-bullseye AS builder
+FROM golang:1.22-bookworm AS builder
 
 # hadolint ignore=DL3008
-RUN apt-get update -qq \
+RUN echo "deb http://deb.debian.org/debian bookworm-backports main" >/etc/apt/sources.list.d/backports.list \
+ && apt-get update -qq \
  && apt-get install -qqy --no-install-recommends \
   ca-certificates \
   git \
@@ -32,7 +33,7 @@ COPY . .
 
 RUN go build -o packer-plugin-cross
 
-ENV PACKER_VERSION 1.10.0
+ENV PACKER_VERSION=1.10.0
 
 RUN if [ "$(uname -m)" = "aarch64" ]; then PACKER_ARCH="arm64"; else PACKER_ARCH="amd64"; fi && \
   wget https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_${PACKER_ARCH}.zip -q -O /tmp/packer.zip && \
@@ -43,7 +44,7 @@ RUN if [ "$(uname -m)" = "aarch64" ]; then PACKER_ARCH="arm64"; else PACKER_ARCH
 # COMPRESS WITH UPX
 RUN upx-ucl --lzma /build/packer-plugin-cross /bin/packer
 
-FROM public.ecr.aws/lts/ubuntu:jammy
+FROM public.ecr.aws/ubuntu/ubuntu:24.04
 
 # hadolint ignore=DL3008
 RUN apt-get update -qq \
