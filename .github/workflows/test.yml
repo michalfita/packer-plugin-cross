@@ -94,13 +94,17 @@ jobs:
       - name: Install Packer
         uses: hashicorp-contrib/setup-packer@v3
         with:
-          packer-version: 1.10.0
+          packer-version: 1.11.0
 
       - name: Retrieve cache
         uses: actions/cache@v4
         with:
           path: packer-plugin-cross
           key: key-${{ github.sha }}-1
+
+      - name: Bring plugin in place
+        run: |
+          packer plugins install -path ./packer-plugin-cross "github.com/michalfita/cross"
 
       - name: Install packer plugins
         if: ${{ endsWith(matrix.boards, '.hcl') }}
