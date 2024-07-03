@@ -33,7 +33,7 @@ COPY . .
 
 RUN go build -o packer-plugin-cross
 
-ENV PACKER_VERSION=1.10.0
+ENV PACKER_VERSION=1.11.0
 
 RUN if [ "$(uname -m)" = "aarch64" ]; then PACKER_ARCH="arm64"; else PACKER_ARCH="amd64"; fi && \
   wget https://releases.hashicorp.com/packer/${PACKER_VERSION}/packer_${PACKER_VERSION}_linux_${PACKER_ARCH}.zip -q -O /tmp/packer.zip && \
