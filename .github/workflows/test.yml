@@ -102,6 +102,10 @@ jobs:
           path: packer-plugin-cross
           key: key-${{ github.sha }}-1
 
+      - name: Bring plugin in place
+        run: |
+          packer plugins install -path ./packer-plugin-cross "github.com/michalfita/cross"
+
       - name: Install packer plugins
         if: ${{ endsWith(matrix.boards, '.hcl') }}
         run: PACKER_LOG=1 packer init boards/${{ matrix.boards }}

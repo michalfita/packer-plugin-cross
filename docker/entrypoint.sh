@@ -67,10 +67,7 @@ export DONT_SETUP_QEMU=1
 mkdir -p "${PACKER_PLUGIN_PATH}"
 mkdir -p "${PACKER_CACHE_DIR}"
 
-if [ ! -f "${PACKER_PLUGIN_PATH}/packer-plugin-cross" ]; then
-    echo "Copying packer-plugin-cross to ${PACKER_PLUGIN_PATH}"
-    cp /bin/packer-plugin-cross "${PACKER_PLUGIN_PATH}/packer-plugin-cross"
-fi
+"${PACKER}" plugins install -path /bin/packer-plugin-cross "github.com/michalfita/cross"
 
 echo running "${PACKER}" "${@}"
 
