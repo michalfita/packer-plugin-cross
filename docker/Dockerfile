@@ -14,7 +14,7 @@ RUN mkdir -p /binaries && \
         cp /usr/bin/qemu-arm-static /binaries/; \
     fi
 
-FROM golang:1.22-bookworm AS builder
+FROM golang:1.23-bookworm AS builder
 
 # hadolint ignore=DL3008
 RUN echo "deb http://deb.debian.org/debian bookworm-backports main" >/etc/apt/sources.list.d/backports.list \
