@@ -7,7 +7,7 @@ toolchain go1.22.4
 require (
 	github.com/dustin/go-humanize v1.0.1
 	github.com/hashicorp/go-getter v1.7.6
-	github.com/hashicorp/hcl/v2 v2.21.0
+	github.com/hashicorp/hcl/v2 v2.22.0
 	github.com/hashicorp/packer-plugin-sdk v0.5.4
 	github.com/mholt/archiver/v3 v3.5.1
 	github.com/zclconf/go-cty v1.13.3
