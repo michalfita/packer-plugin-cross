@@ -39,10 +39,10 @@ func (s *StepExtractAndCopyImage) Run(_ context.Context, state multistep.StateBa
 	dst := filepath.Join(dir, filepath.Base(archivePath))
 	err = copy.Copy(archivePath, dst, copy.Options{
 		Sync: true,
-		OnSymlink: func(src string) copy.SymlinkAction {
+		OnSymlink: func(_ string) copy.SymlinkAction {
 			return copy.Shallow
 		},
-		OnDirExists: func(src, dest string) copy.DirExistsAction {
+		OnDirExists: func(_, dest string) copy.DirExistsAction {
 			return copy.Merge
 		},
 	})
