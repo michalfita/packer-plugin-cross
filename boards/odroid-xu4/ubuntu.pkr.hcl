@@ -1,10 +1,10 @@
 
 source "cross" "ubuntu" {
   file_checksum_type    = "md5sum"
-  file_checksum_url     = "http://de.eu.odroid.in/ubuntu_18.04lts/XU3_XU4_MC1_HC1_HC2/ubuntu-18.04.1-4.14-mate-odroid-xu4-20181203.img.xz.md5sum"
+  file_checksum_url     = "https://de.eu.odroid.in/ubuntu_24.04lts/XU3_XU4_MC1_HC1_HC2/ubuntu-24.04-6.6-mate-odroid-xu4-20240911.img.xz.md5sum"
   file_target_extension = "xz"
   file_unarchive_cmd    = ["xz", "-d", "$ARCHIVE_PATH"]
-  file_urls             = ["http://de.eu.odroid.in/ubuntu_18.04lts/XU3_XU4_MC1_HC1_HC2/ubuntu-18.04.1-4.14-mate-odroid-xu4-20181203.img.xz"]
+  file_urls             = ["https://de.eu.odroid.in/ubuntu_24.04lts/XU3_XU4_MC1_HC1_HC2/ubuntu-24.04-6.6-mate-odroid-xu4-20240911.img.xz"]
   image_build_method    = "reuse"
   image_chroot_env      = ["PATH=/usr/local/bin:/usr/local/sbin:/usr/bin:/usr/sbin:/bin:/sbin"]
   image_partitions {
