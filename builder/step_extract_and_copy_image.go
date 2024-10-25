@@ -42,7 +42,7 @@ func (s *StepExtractAndCopyImage) Run(_ context.Context, state multistep.StateBa
 		OnSymlink: func(_ string) copy.SymlinkAction {
 			return copy.Shallow
 		},
-		OnDirExists: func(_, dest string) copy.DirExistsAction {
+		OnDirExists: func(_, _ string) copy.DirExistsAction {
 			return copy.Merge
 		},
 	})
