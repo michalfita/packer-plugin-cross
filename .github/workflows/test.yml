@@ -17,7 +17,7 @@ jobs:
     steps:
       - name: Retrieve cache
         id: cache-key
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: packer-plugin-cross
           key: key-${{ github.sha }}-1
@@ -26,11 +26,11 @@ jobs:
         if: steps.cache-key.outputs.cache-hit != 'true'
         uses: actions/checkout@v4
 
-      - name: Set up Go 1.21
+      - name: Set up Go
         if: steps.cache-key.outputs.cache-hit != 'true'
-        uses: actions/setup-go@v5.0.0
+        uses: actions/setup-go@v5.0.2
         with:
-          go-version: '1.21'
+          go-version: '1.23'
         id: go
 
       - name: Get dependencies
@@ -48,7 +48,7 @@ jobs:
 
       - name: Cache binary
         if: steps.cache-key.outputs.cache-hit != 'true'
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: packer-plugin-cross
           key: key-${{ github.sha }}-1
@@ -94,13 +94,17 @@ jobs:
       - name: Install Packer
         uses: hashicorp-contrib/setup-packer@v3
         with:
-          packer-version: 1.10.0
+          packer-version: 1.11.0
 
       - name: Retrieve cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: packer-plugin-cross
           key: key-${{ github.sha }}-1
+
+      - name: Bring plugin in place
+        run: |
+          packer plugins install -path ./packer-plugin-cross "github.com/michalfita/cross"
 
       - name: Install packer plugins
         if: ${{ endsWith(matrix.boards, '.hcl') }}
@@ -110,18 +114,20 @@ jobs:
         run: PACKER_LOG=1 packer validate boards/${{ matrix.boards }}
 
       - name: Build image
-        run: sudo PACKER_LOG=1 packer build boards/${{ matrix.boards }}
+        run: |
+          PACKER_BINARY="$(which packer)"
+          sudo PACKER_LOG=1 ${PACKER_BINARY} build boards/${{ matrix.boards }}
 
   plugin-check:
     needs: compile
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5.0.0
+      - uses: actions/setup-go@v5.0.2
         with:
-          go-version: 1.19
+          go-version: '1.23'
       - name: Retrieve cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: packer-plugin-cross
           key: key-${{ github.sha }}-1
