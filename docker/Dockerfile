@@ -1,5 +1,5 @@
 # Source for qemu-user-static >7.0
-FROM public.ecr.aws/ubuntu/ubuntu:24.04 AS qemu_binaries
+FROM public.ecr.aws/ubuntu/ubuntu:25.04 AS qemu_binaries
 
 # hadolint ignore=DL3008
 RUN apt-get update -qq \
@@ -44,7 +44,7 @@ RUN if [ "$(uname -m)" = "aarch64" ]; then PACKER_ARCH="arm64"; else PACKER_ARCH
 # COMPRESS WITH UPX
 RUN upx-ucl --lzma /build/packer-plugin-cross /bin/packer
 
-FROM public.ecr.aws/ubuntu/ubuntu:24.04
+FROM public.ecr.aws/ubuntu/ubuntu:25.04
 
 # hadolint ignore=DL3008
 RUN apt-get update -qq \
