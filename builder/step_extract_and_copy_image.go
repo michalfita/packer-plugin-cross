@@ -10,6 +10,7 @@ import (
 	"github.com/hashicorp/packer-plugin-sdk/multistep"
 	"github.com/hashicorp/packer-plugin-sdk/packer"
 	"github.com/mholt/archiver/v3"
+	"github.com/otiai10/copy"
 )
 
 // StepExtractAndCopyImage creates filesystem on already partitioned image
@@ -36,9 +37,17 @@ func (s *StepExtractAndCopyImage) Run(_ context.Context, state multistep.StateBa
 
 	// step 2: copy downloaded archive to temporary dir
 	dst := filepath.Join(dir, filepath.Base(archivePath))
-	out, err = exec.Command("cp", "-rf", archivePath, dst).CombinedOutput()
+	err = copy.Copy(archivePath, dst, copy.Options{
+		Sync: true,
+		OnSymlink: func(_ string) copy.SymlinkAction {
+			return copy.Shallow
+		},
+		OnDirExists: func(_, _ string) copy.DirExistsAction {
+			return copy.Merge
+		},
+	})
 	if err != nil {
-		ui.Error(fmt.Sprintf("error while copying file %v: %s", err, out))
+		ui.Error(fmt.Sprintf("failed to copy %s to %s: %v", err, archivePath, dst))
 		return multistep.ActionHalt
 	}
 
@@ -93,7 +102,8 @@ func (s *StepExtractAndCopyImage) Run(_ context.Context, state multistep.StateBa
 	}
 
 	// step 6: move single file to destination (as image)
-	out, err = exec.Command("mv", filepath.Join(dir, files[0].Name()), config.ImageConfig.ImagePath).CombinedOutput()
+	srcPath := filepath.Join(dir, files[0].Name())
+	err = os.Rename(srcPath, config.ImageConfig.ImagePath)
 	if err != nil {
 		ui.Error(fmt.Sprintf("error while copying file %v: %s", err, out))
 		return multistep.ActionHalt
