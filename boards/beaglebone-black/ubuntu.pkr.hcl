@@ -1,9 +1,9 @@
 source "cross" "ubuntu" {
-  file_checksum         = "0f7dadf059229f9dc7f1b0ddc10e58ebe44ad5e576b383022406d1f3f49530c2"
+  file_checksum         = "360eeabd57712c6263b0c9332dfffd85ad6dcd889581b34b20a96822ebeb47cd"
   file_checksum_type    = "sha256"
   file_target_extension = "xz"
   file_unarchive_cmd    = ["xz", "-d", "$ARCHIVE_PATH"]
-  file_urls             = ["https://rcn-ee.net/rootfs/ubuntu-armhf-24.04-console-v5.10-ti/2024-10-16/am335x-ubuntu-24.04.1-console-armhf-2024-10-16-4gb.img.xz"]
+  file_urls             = ["https://rcn-ee.net/rootfs/ubuntu-armhf-24.04-console-v5.10-ti/2024-12-18/am335x-ubuntu-24.04.1-console-armhf-2024-12-18-4gb.img.xz"]
   image_build_method    = "resize"
   image_path            = "bbb-sdcard-ubuntu-24.04.1-console.img"
   image_size            = "6G"
