@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   compile:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Retrieve cache
         id: cache-key
@@ -81,7 +81,7 @@ jobs:
           - rock-4b/debos-radxa.pkr.hcl
           - wandboard/archlinuxarm.pkr.hcl
     name: Build ${{ matrix.boards }} image
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -89,7 +89,7 @@ jobs:
       - name: Fetch additional packages
         run: |
           sudo apt-get update
-          sudo apt-get install fdisk gdisk qemu-user-static libarchive-tools tar qemu qemu-utils
+          sudo apt-get install fdisk gdisk qemu-user-static libarchive-tools tar qemu-utils
 
       - name: Install Packer
         uses: hashicorp-contrib/setup-packer@v3
@@ -120,7 +120,7 @@ jobs:
 
   plugin-check:
     needs: compile
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-go@v5.3.0
