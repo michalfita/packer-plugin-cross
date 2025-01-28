@@ -10,7 +10,7 @@ require (
 	github.com/hashicorp/hcl/v2 v2.23.0
 	github.com/hashicorp/packer-plugin-sdk v0.5.4
 	github.com/mholt/archiver/v3 v3.5.1
-	github.com/otiai10/copy v1.14.0
+	github.com/otiai10/copy v1.14.1
 	github.com/zclconf/go-cty v1.13.3
 )
 
@@ -89,6 +89,7 @@ require (
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/nu7hatch/gouuid v0.0.0-20131221200532-179d4d0c4d8d // indirect
 	github.com/nwaples/rardecode v1.1.3 // indirect
+	github.com/otiai10/mint v1.6.3 // indirect
 	github.com/packer-community/winrmcp v0.0.0-20180921211025-c76d91c1e7db // indirect
 	github.com/pierrec/lz4/v4 v4.1.2 // indirect
 	github.com/pkg/sftp v1.13.4 // indirect
@@ -102,8 +103,8 @@ require (
 	golang.org/x/mod v0.13.0 // indirect
 	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/oauth2 v0.13.0 // indirect
-	golang.org/x/sync v0.5.0 // indirect
-	golang.org/x/sys v0.20.0 // indirect
+	golang.org/x/sync v0.8.0 // indirect
+	golang.org/x/sys v0.24.0 // indirect
 	golang.org/x/term v0.20.0 // indirect
 	golang.org/x/text v0.15.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
