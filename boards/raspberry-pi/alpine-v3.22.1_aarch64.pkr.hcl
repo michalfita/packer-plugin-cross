@@ -32,13 +32,13 @@ source "cross" "alpine" {
 build {
   sources = ["source.cross.alpine"]
 
-  provisioner "file" {
-    sources = [
-      "files/boot/cmdline.txt",
-      "files/boot/config.txt",
-      "files/boot/start4x.elf",
-      "files/boot/fixup4x.dat"
-    ]
-    destination = "/boot/firmware"
-  }
+  # provisioner "file" {
+  #    sources = [
+  #     "files/boot/cmdline.txt",
+  #     "files/boot/config.txt",
+  #     "files/boot/start4x.elf",
+  #     "files/boot/fixup4x.dat"
+  #   ]
+  #   destination = "/boot/firmware"
+  # }
 }
