@@ -56,7 +56,7 @@ func (s *StepExtractAndCopyImage) Run(_ context.Context, state multistep.StateBa
 		ui.Message("using raw image")
 	} else {
 		// step 3: unarchive file within temporary dir
-		ui.Message(fmt.Sprintf("unpacking %s to %s", archivePath, config.ImageConfig.ImagePath))
+		ui.Message(fmt.Sprintf("unpacking %s to %s", archivePath, config.ImagePath))
 		if len(config.FileUnarchiveCmd) != 0 {
 			cmd := make([]string, len(config.FileUnarchiveCmd))
 			vars := map[string]string{
@@ -103,7 +103,7 @@ func (s *StepExtractAndCopyImage) Run(_ context.Context, state multistep.StateBa
 
 	// step 6: move single file to destination (as image)
 	srcPath := filepath.Join(dir, files[0].Name())
-	err = os.Rename(srcPath, config.ImageConfig.ImagePath)
+	err = os.Rename(srcPath, config.ImagePath)
 	if err != nil {
 		ui.Error(fmt.Sprintf("error while copying file %v: %s", err, out))
 		return multistep.ActionHalt

@@ -29,14 +29,14 @@ func (s *StepPopulateFilesystem) Run(_ context.Context, state multistep.StateBag
 
 	ui.Message(fmt.Sprintf("unpacking %s to %s", rootfsArchive, imageMountpoint))
 
-	if len(config.RemoteFileConfig.FileUnarchiveCmd) != 0 {
-		cmd := make([]string, len(config.RemoteFileConfig.FileUnarchiveCmd))
+	if len(config.FileUnarchiveCmd) != 0 {
+		cmd := make([]string, len(config.FileUnarchiveCmd))
 		vars := map[string]string{
 			"$ARCHIVE_PATH": rootfsArchive,
 			"$MOUNTPOINT":   imageMountpoint,
 		}
 
-		for i, elem := range config.RemoteFileConfig.FileUnarchiveCmd {
+		for i, elem := range config.FileUnarchiveCmd {
 			if _, ok := vars[elem]; ok {
 				cmd[i] = vars[elem]
 			} else {

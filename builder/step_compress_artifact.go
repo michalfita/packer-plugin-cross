@@ -24,7 +24,7 @@ func (s *StepCompressArtifact) prepare(state multistep.StateBag) {
 	config := state.Get("config").(*Config)
 	exclusions := make(map[string]bool)
 
-	for _, mount := range config.ImageConfig.ImageChrootMounts {
+	for _, mount := range config.ImageChrootMounts {
 		exclusions[mount.DestinationPath] = true
 	}
 
@@ -66,8 +66,8 @@ func (s *StepCompressArtifact) Run(_ context.Context, state multistep.StateBag) 
 	ui := state.Get("ui").(packer.Ui)
 	config := state.Get("config").(*Config)
 
-	imagePath := config.ImageConfig.ImagePath
-	imageBase := filepath.Base(config.ImageConfig.ImagePath)
+	imagePath := config.ImagePath
+	imageBase := filepath.Base(config.ImagePath)
 	imageExt := filepath.Ext(imagePath)
 	imageMountpoint := state.Get(s.ImageMountPointKey).(string)
 

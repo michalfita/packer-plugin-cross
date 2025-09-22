@@ -17,7 +17,7 @@ func (s *StepCreateBaseImage) Run(_ context.Context, state multistep.StateBag) m
 	config := state.Get("config").(*Config)
 	ui := state.Get("ui").(packer.Ui)
 
-	ui.Message(fmt.Sprintf("creating an empty image %s", config.ImageConfig.ImagePath))
+	ui.Message(fmt.Sprintf("creating an empty image %s", config.ImagePath))
 	out, err := exec.Command(
 		"dd",
 		"if=/dev/zero",

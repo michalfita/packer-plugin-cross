@@ -19,7 +19,7 @@ func replaceVars(l []string, config *Config, imageMountpoint string) []string {
 	newList := make([]string, len(l))
 	defined := map[string]string{
 		"$MOUNTPOINT": imageMountpoint,
-		"$IMAGE_PATH": config.ImageConfig.ImagePath,
+		"$IMAGE_PATH": config.ImagePath,
 	}
 
 	for i, v := range l {
@@ -39,7 +39,7 @@ func (s *StepSetupExtra) Run(_ context.Context, state multistep.StateBag) multis
 	imageMountpoint := state.Get(s.FromKey).(string)
 
 	ui.Message("running extra setup")
-	for _, cmd := range config.ImageConfig.ImageSetupExtra {
+	for _, cmd := range config.ImageSetupExtra {
 		cmd = replaceVars(cmd, config, imageMountpoint)
 
 		out, err := exec.Command(cmd[0], cmd[1:]...).CombinedOutput()

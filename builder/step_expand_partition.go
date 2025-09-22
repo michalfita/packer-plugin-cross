@@ -20,7 +20,7 @@ type StepExpandPartition struct {
 func findExpandablePartition(config *Config) (int, error) {
 	partitions := []int{}
 
-	for i, partition := range config.ImageConfig.ImagePartitions {
+	for i, partition := range config.ImagePartitions {
 		// resizefs works only for ext partition family
 		if partition.Size == "0" && strings.HasPrefix(partition.Filesystem, "ext") {
 			partitions = append(partitions, i+1)
@@ -52,8 +52,8 @@ func (s *StepExpandPartition) Run(_ context.Context, state multistep.StateBag) m
 		return multistep.ActionHalt
 	}
 
-	out, err := exec.Command("parted", config.ImageConfig.ImagePath, "---pretend-input-tty", "resizepart", strconv.Itoa(partitionIndex), "100%").CombinedOutput()
-	ui.Message(fmt.Sprintf("expanding partition no. %d on the image %s", partitionIndex, config.ImageConfig.ImagePath))
+	out, err := exec.Command("parted", config.ImagePath, "---pretend-input-tty", "resizepart", strconv.Itoa(partitionIndex), "100%").CombinedOutput()
+	ui.Message(fmt.Sprintf("expanding partition no. %d on the image %s", partitionIndex, config.ImagePath))
 	if err != nil {
 		ui.Error(fmt.Sprintf("error while expanding partition %v: %s", err, out))
 		return multistep.ActionHalt

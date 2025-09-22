@@ -14,10 +14,10 @@ import (
 func partitionGPT(ui packer.Ui, config *Config) multistep.StepAction {
 	ui.Message(
 		fmt.Sprintf("creating %d GPT partitions on %s",
-			len(config.ImageConfig.ImagePartitions),
-			config.ImageConfig.ImagePath),
+			len(config.ImagePartitions),
+			config.ImagePath),
 	)
-	for _, partition := range config.ImageConfig.ImagePartitions {
+	for _, partition := range config.ImagePartitions {
 		cmd := []string{
 			"sgdisk",
 			"-n",
@@ -26,7 +26,7 @@ func partitionGPT(ui packer.Ui, config *Config) multistep.StepAction {
 			fmt.Sprintf("0:%s", partition.Type),
 			"-c",
 			fmt.Sprintf("0:%s", partition.Name),
-			config.ImageConfig.ImagePath,
+			config.ImagePath,
 		}
 
 		out, err := exec.Command(cmd[0], cmd[1:]...).CombinedOutput()
@@ -42,16 +42,16 @@ func partitionGPT(ui packer.Ui, config *Config) multistep.StepAction {
 func partitionDOS(ui packer.Ui, config *Config) multistep.StepAction {
 	lines := []string{
 		"label: dos",
-		fmt.Sprintf("device: %s", config.ImageConfig.ImagePath),
+		fmt.Sprintf("device: %s", config.ImagePath),
 		"unit: sectors",
 	}
 
 	ui.Message(
 		fmt.Sprintf("creating %d dos partitions on %s",
-			len(config.ImageConfig.ImagePartitions),
-			config.ImageConfig.ImagePath),
+			len(config.ImagePartitions),
+			config.ImagePath),
 	)
-	for i, partition := range config.ImageConfig.ImagePartitions {
+	for i, partition := range config.ImagePartitions {
 		line := fmt.Sprintf(
 			"%s%d: type=%s",
 			partition.Name, //config.ImageConfig.ImagePath,
@@ -76,7 +76,7 @@ func partitionDOS(ui packer.Ui, config *Config) multistep.StepAction {
 
 	ui.Error(fmt.Sprintf("** DEBUG: %s", strings.Join(lines, "\n")))
 
-	cmd := exec.Command("sfdisk", config.ImageConfig.ImagePath)
+	cmd := exec.Command("sfdisk", config.ImagePath)
 
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
@@ -132,7 +132,7 @@ type StepPartitionImage struct{}
 func (s *StepPartitionImage) Run(_ context.Context, state multistep.StateBag) multistep.StepAction {
 	ui := state.Get("ui").(packer.Ui)
 	config := state.Get("config").(*Config)
-	zeroCmd := []string{"sgdisk", "-Z", config.ImageConfig.ImagePath}
+	zeroCmd := []string{"sgdisk", "-Z", config.ImagePath}
 
 	out, err := exec.Command(zeroCmd[0], zeroCmd[1:]...).CombinedOutput()
 	if err != nil {
@@ -140,11 +140,11 @@ func (s *StepPartitionImage) Run(_ context.Context, state multistep.StateBag) mu
 		return multistep.ActionHalt
 	}
 
-	if config.ImageConfig.ImageType == "dos" {
+	if config.ImageType == "dos" {
 		return partitionDOS(ui, config)
 	}
 
-	if config.ImageConfig.ImageType == "gpt" {
+	if config.ImageType == "gpt" {
 		return partitionGPT(ui, config)
 	}
 

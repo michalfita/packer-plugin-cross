@@ -20,7 +20,7 @@ type StepMapImage struct {
 func (s *StepMapImage) Run(_ context.Context, state multistep.StateBag) multistep.StepAction {
 	config := state.Get("config").(*Config)
 	ui := state.Get("ui").(packer.Ui)
-	image := config.ImageConfig.ImagePath
+	image := config.ImagePath
 
 	// ask losetup to find empty device and map image
 	ui.Message(fmt.Sprintf("mapping image %s to free loopback device", image))
