@@ -63,7 +63,7 @@ func (s *StepMountImage) Run(_ context.Context, state multistep.StateBag) multis
 		s.MountPath = tempdir
 	}
 
-	partitions := sortMountablePartitions(config.ImageConfig.ImagePartitions, false)
+	partitions := sortMountablePartitions(config.ImagePartitions, false)
 	for _, partition := range partitions {
 		mountpoint := filepath.Join(s.MountPath, partition.Mountpoint)
 		device := fmt.Sprintf("%sp%d", loopDevice, partition.Index)
@@ -94,7 +94,7 @@ func (s *StepMountImage) Cleanup(state multistep.StateBag) {
 	ui := state.Get("ui").(packer.Ui)
 
 	if s.MountPath != "" {
-		partitions := sortMountablePartitions(config.ImageConfig.ImagePartitions, true)
+		partitions := sortMountablePartitions(config.ImagePartitions, true)
 		for _, partition := range partitions {
 			mountpoint := filepath.Join(s.MountPath, partition.Mountpoint)
 			ui.Message(fmt.Sprintf("unmounting %s", mountpoint))

@@ -19,8 +19,8 @@ func (s *StepResizeQemuImage) Run(_ context.Context, state multistep.StateBag) m
 	config := state.Get("config").(*Config)
 
 	// resize base image (.img) with qemu tooling
-	out, err := exec.Command("qemu-img", "resize", config.ImageConfig.ImagePath, string(config.ImageConfig.ImageSize)).CombinedOutput()
-	ui.Message(fmt.Sprintf("resizing the image file %v to %s", config.ImageConfig.ImagePath, string(config.ImageConfig.ImageSize)))
+	out, err := exec.Command("qemu-img", "resize", config.ImagePath, string(config.ImageSize)).CombinedOutput()
+	ui.Message(fmt.Sprintf("resizing the image file %v to %s", config.ImagePath, string(config.ImageSize)))
 	if err != nil {
 		ui.Error(fmt.Sprintf("error while resizing the image %v: %s", err, out))
 		return multistep.ActionHalt

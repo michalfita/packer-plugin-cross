@@ -28,7 +28,7 @@ jobs:
 
       - name: Set up Go
         if: steps.cache-key.outputs.cache-hit != 'true'
-        uses: actions/setup-go@v5.3.0
+        uses: actions/setup-go@v5.5.0
         with:
           go-version: '1.23'
         id: go
@@ -63,7 +63,7 @@ jobs:
           - beaglebone-black/angstrom.pkr.hcl
           - beaglebone-black/archlinuxarm.pkr.hcl
           - beaglebone-black/debian.pkr.hcl
-          - beaglebone-black/ubuntu.pkr.hcl
+          #- beaglebone-black/ubuntu.pkr.hcl
           #- jetson-nano/ubuntu.pkr.hcl
           - odroid-u3/archlinuxarm.pkr.hcl
           - odroid-xu4/archlinuxarm.pkr.hcl
@@ -123,7 +123,7 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-go@v5.3.0
+      - uses: actions/setup-go@v5.5.0
         with:
           go-version: '1.23'
       - name: Retrieve cache

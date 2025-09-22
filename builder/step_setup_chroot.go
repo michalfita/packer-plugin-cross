@@ -76,7 +76,7 @@ func (s *StepSetupChroot) Run(_ context.Context, state multistep.StateBag) multi
 	ui := state.Get("ui").(packer.Ui)
 
 	imageMountpoint := state.Get(s.ImageMountPointKey).(string)
-	chrootMounts := sortMountpoints(config.ImageConfig.ImageChrootMounts, false)
+	chrootMounts := sortMountpoints(config.ImageChrootMounts, false)
 
 	for _, chrootMount := range chrootMounts {
 		mountpoint := filepath.Join(imageMountpoint, chrootMount.DestinationPath)
@@ -103,7 +103,7 @@ func (s *StepSetupChroot) Cleanup(state multistep.StateBag) {
 	config := state.Get("config").(*Config)
 	ui := state.Get("ui").(packer.Ui)
 
-	chrootMounts := sortMountpoints(config.ImageConfig.ImageChrootMounts, true)
+	chrootMounts := sortMountpoints(config.ImageChrootMounts, true)
 	imageMountpoint := state.Get(s.ImageMountPointKey).(string)
 
 	// kill anything that would prevent the umount to succeed (best effort)
