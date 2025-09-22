@@ -31,7 +31,7 @@ func (s *StepMkfsImage) Run(_ context.Context, state multistep.StateBag) multist
 
 		if _, err := os.Stat(loopPartition); errors.Is(err, os.ErrNotExist) {
 			ui.Error(fmt.Sprintf("partition loopack `%s` doesn't exist immediately after mouting, delaying...", loopPartition)) // TODO: where's warning?
-  			time.Sleep(1 * time.Second)
+			time.Sleep(1 * time.Second)
 			if _, err := os.Stat(args[1]); errors.Is(err, os.ErrNotExist) {
 				ui.Error(fmt.Sprintf("partition loopack `%s` doesn't exist, aborting partition creation", loopPartition))
 				return multistep.ActionHalt
