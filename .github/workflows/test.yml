@@ -63,7 +63,7 @@ jobs:
           - beaglebone-black/angstrom.pkr.hcl
           - beaglebone-black/archlinuxarm.pkr.hcl
           - beaglebone-black/debian.pkr.hcl
-          - beaglebone-black/ubuntu.pkr.hcl
+          #- beaglebone-black/ubuntu.pkr.hcl
           #- jetson-nano/ubuntu.pkr.hcl
           - odroid-u3/archlinuxarm.pkr.hcl
           - odroid-xu4/archlinuxarm.pkr.hcl
