@@ -70,6 +70,7 @@ jobs:
           - odroid-xu4/ubuntu.pkr.hcl
           - parallella/archlinuxarm.pkr.hcl
           - parallella/ubuntu.pkr.hcl
+          - raspberry-pi/alpine-v3.22.1_aarch64.pkr.hcl
           - raspberry-pi/archlinuxarm.pkr.hcl
           - raspberry-pi/raspbian.pkr.hcl
           - raspberry-pi/raspbian-resize.pkr.hcl
