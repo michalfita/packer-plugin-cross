@@ -66,7 +66,7 @@ func (c *ImageConfig) Prepare(_ *interpolate.Context) (warnings []string, errs [
 		c.ImageType = "dos"
 	}
 
-	if !(c.ImageType == "dos" || c.ImageType == "gpt") {
+	if c.ImageType != "dos" && c.ImageType != "gpt" {
 		errs = append(errs, errors.New("supported image types are: gpt, dos"))
 	}
 
@@ -74,7 +74,7 @@ func (c *ImageConfig) Prepare(_ *interpolate.Context) (warnings []string, errs [
 		errs = append(errs, errors.New("image build method must be specified"))
 	}
 
-	if !(c.ImageBuildMethod == "new" || c.ImageBuildMethod == "reuse" || c.ImageBuildMethod == "resize") {
+	if c.ImageBuildMethod != "new" && c.ImageBuildMethod != "reuse" && c.ImageBuildMethod != "resize" {
 		errs = append(errs, errors.New("invalid image build method specified (valid options: new, reuse)"))
 	}
 

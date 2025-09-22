@@ -30,7 +30,7 @@ func (s *StepChrootProvision) Run(ctx context.Context, state multistep.StateBag)
 			if s.SetupQemu {
 				return fmt.Sprintf(
 					"%s %s",
-					strings.Join(config.ImageConfig.ImageChrootEnv, " "),
+					strings.Join(config.ImageChrootEnv, " "),
 					cmd,
 				), nil
 			}

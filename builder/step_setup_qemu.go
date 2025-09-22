@@ -46,7 +46,7 @@ func checkBinfmtMisc(srcPath string) (string, error) {
 		}
 	}
 
-	return "", fmt.Errorf("Failed to find binfmt_misc for %s under /proc/sys/fs/binfmt_misc", srcPath)
+	return "", fmt.Errorf("failed to find binfmt_misc for %s under /proc/sys/fs/binfmt_misc", srcPath)
 }
 
 // StepSetupQemu configures chroot environment to run binaries via qemu
@@ -60,8 +60,8 @@ func (s *StepSetupQemu) Run(_ context.Context, state multistep.StateBag) multist
 	ui := state.Get("ui").(packer.Ui)
 
 	imageMountpoint := state.Get(s.ImageMountPointKey).(string)
-	srcPath := config.QemuConfig.QemuBinarySourcePath
-	dstPath := filepath.Join(imageMountpoint, config.QemuConfig.QemuBinaryDestinationPath)
+	srcPath := config.QemuBinarySourcePath
+	dstPath := filepath.Join(imageMountpoint, config.QemuBinaryDestinationPath)
 
 	// check if binfmt_misc is present
 	binfmt, err := checkBinfmtMisc(srcPath)
@@ -92,7 +92,7 @@ func (s *StepSetupQemu) Cleanup(state multistep.StateBag) {
 	config := state.Get("config").(*Config)
 
 	imageMountpoint := state.Get(s.ImageMountPointKey).(string)
-	dstPath := filepath.Join(imageMountpoint, config.QemuConfig.QemuBinaryDestinationPath)
+	dstPath := filepath.Join(imageMountpoint, config.QemuBinaryDestinationPath)
 
 	if err := os.Remove(dstPath); err != nil {
 		ui.Error(err.Error())

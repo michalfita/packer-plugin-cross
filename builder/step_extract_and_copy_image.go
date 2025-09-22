@@ -52,19 +52,19 @@ func (s *StepExtractAndCopyImage) Run(_ context.Context, state multistep.StateBa
 	}
 
 	// skip unarchive logic if provided raw image (steps: 3&4)
-	if config.RemoteFileConfig.TargetExtension == "img" || config.RemoteFileConfig.TargetExtension == "iso" {
+	if config.TargetExtension == "img" || config.TargetExtension == "iso" {
 		ui.Message("using raw image")
 	} else {
 		// step 3: unarchive file within temporary dir
 		ui.Message(fmt.Sprintf("unpacking %s to %s", archivePath, config.ImageConfig.ImagePath))
-		if len(config.RemoteFileConfig.FileUnarchiveCmd) != 0 {
-			cmd := make([]string, len(config.RemoteFileConfig.FileUnarchiveCmd))
+		if len(config.FileUnarchiveCmd) != 0 {
+			cmd := make([]string, len(config.FileUnarchiveCmd))
 			vars := map[string]string{
 				"$ARCHIVE_PATH": dst,
 				"$TMP_DIR":      dir,
 			}
 
-			for i, elem := range config.RemoteFileConfig.FileUnarchiveCmd {
+			for i, elem := range config.FileUnarchiveCmd {
 				if _, ok := vars[elem]; ok {
 					cmd[i] = vars[elem]
 				} else {

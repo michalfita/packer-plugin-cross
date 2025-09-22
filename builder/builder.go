@@ -117,7 +117,7 @@ func (b *Builder) Run(ctx context.Context, ui packer.Ui, hook packer.Hook) (pack
 		},
 	}
 
-	switch b.config.ImageConfig.ImageBuildMethod {
+	switch b.config.ImageBuildMethod {
 
 	case "new":
 		steps = append(
@@ -187,5 +187,5 @@ func (b *Builder) Run(ctx context.Context, ui packer.Ui, hook packer.Hook) (pack
 		return nil, errors.New("build was halted")
 	}
 
-	return &Artifact{b.config.ImageConfig.ImagePath}, nil
+	return &Artifact{b.config.ImagePath}, nil
 }
