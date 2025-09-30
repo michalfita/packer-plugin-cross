@@ -36,6 +36,11 @@ func (s *StepMapImage) Run(_ context.Context, state multistep.StateBag) multiste
 	state.Put(s.ResultKey, s.loopDevice)
 	ui.Message(fmt.Sprintf("image %s mapped to %s", image, s.loopDevice))
 
+	out, err = exec.Command("partprobe").CombinedOutput()
+	if err != nil {
+		ui.Error(fmt.Sprintf("Failed to run partprobe: %s", err))
+	}
+
 	return multistep.ActionContinue
 }
 
