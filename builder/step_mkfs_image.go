@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"io/fs"
 	"os"
 	"os/exec"
 	"strings"
@@ -23,6 +24,25 @@ func (s *StepMkfsImage) Run(_ context.Context, state multistep.StateBag) multist
 	ui := state.Get("ui").(packer.Ui)
 	config := state.Get("config").(*Config)
 	loopDevice := state.Get(s.FromKey).(string)
+
+	for i, _ := range config.ImageConfig.ImagePartitions {
+		loopPartition := fmt.Sprintf("%sp%d", loopDevice, i+1)
+		for attempt := 0; ; attempt++ {
+			outFile, err := os.OpenFile(loopPartition, os.O_WRONLY, fs.ModeDevice)
+			if err == nil {
+				ui.Message(fmt.Sprintf("partition loopback `%s` is available for writing", loopPartition))
+				outFile.Close()
+				break
+			} else {
+				ui.Message(fmt.Sprintf("partition loopback `%s` cannot be written yet: %s", loopPartition, err))
+				if attempt >= 3 {
+					ui.Error(fmt.Sprintf("giving up on partition loopback `%s`", loopPartition))
+				} else {
+					time.Sleep(1 * time.Second)
+				}
+			}
+		}
+	}
 
 	for i, partition := range config.ImageConfig.ImagePartitions {
 		cmd := fmt.Sprintf("mkfs.%s", partition.Filesystem)
